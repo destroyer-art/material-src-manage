@@ -1,0 +1,12 @@
+flask==3.0.3
+flask_cors==5.0.0
+flask_sqlalchemy==3.1.1
+flask_migrate==4.0.7
+black==24.8.0
+ruff==0.6.4
+pydantic==2.9.1
+pydantic-settings==2.5.2
+sqlalchemy==2.0.34
+sqlalchemy_utils==0.41.2
+python-dotenv==1.0.1
+psycopg2-binary==2.9.9
