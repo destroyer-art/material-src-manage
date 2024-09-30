@@ -5,7 +5,7 @@ from app.db.dbconnect import SessionLocal
 db = SessionLocal()
 
 
-async def load_inventory_info():
+def load_inventory_info():
     with open("data/inventory.csv", mode="r") as file:
         column_names = file.readline().strip().split(",")
         print(column_names)
@@ -34,7 +34,6 @@ async def load_inventory_info():
                 location=data[18],
             )
             db.add(new_inventory)
-            await db.commit()
-            await db.refresh()
+            db.commit()
 
     print("All inventory data was inserted")
