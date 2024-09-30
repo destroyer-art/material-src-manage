@@ -7,6 +7,7 @@ from app.api.api_route import api_router
 from app.db.dbconnect import Base, engine
 import app.db.schemas
 
+from app.utils.load_data import load_inventory_info
 
 load_dotenv()
 
@@ -15,8 +16,8 @@ async def lifespan(app: FastAPI):
     print("DB connecting ...")
     Base.metadata.create_all(bind=engine)
     print("Server starting ...")
-    # load_inventory_info()
-    # print("Inventory data commited.")
+    load_inventory_info()
+    print("Inventory data commited.")
     yield
     print("Server shutting down ...")
 
