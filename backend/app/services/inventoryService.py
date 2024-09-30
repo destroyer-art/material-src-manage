@@ -18,19 +18,34 @@ async def get_inventory_data(page: int, perpage: int):
 
 
 async def get_match_inventory(preference: PreferenceModel):
-    return (
-        dbHandler.query(InventorySchema)
-        .filter(
-            and_(
-                InventorySchema.material == preference.material,
-                InventorySchema.form == preference.form,
-                InventorySchema.grade == preference.grade,
-                InventorySchema.choice == preference.choice,
-                InventorySchema.width >= preference.min_width,
-                InventorySchema.width <= preference.max_width,
-                InventorySchema.thickness >= preference.min_thickness,
-                InventorySchema.thickness <= preference.max_thickness,
-            )
-        )
-        .order_by(InventorySchema.weight.desc())
-    )
+    query = dbHandler.query(InventorySchema)
+
+    filter_conditions = []
+
+    conditions = [
+        ("material", InventorySchema.material, "=="),
+        ("form", InventorySchema.form, "=="),
+        ("grade", InventorySchema.grade, "=="),
+        ("choice", InventorySchema.choice, "=="),
+        ("min_width", InventorySchema.width, ">="),
+        ("max_width", InventorySchema.width, "<="),
+        ("min_thickness", InventorySchema.thickness, ">="),
+        ("max_thickness", InventorySchema.thickness, "<="),
+    ]
+
+    for attr, schema_field, operator in conditions:
+        value = getattr(preference, attr)
+        if value is not None:
+            if operator == "==":
+                filter_conditions.append(schema_field == value)
+            elif operator == ">=":
+                filter_conditions.append(schema_field >= value)
+            elif operator == "<=":
+                filter_conditions.append(schema_field <= value)
+
+    if filter_conditions:
+        query = query.filter(and_(*filter_conditions))
+
+    result = query.order_by(InventorySchema.weight.desc()).all()
+
+    return result
