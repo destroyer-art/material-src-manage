@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, Float
 from app.db.dbconnect import Base
 
 
@@ -13,16 +13,16 @@ class InventorySchema(Base):
     grade = Column(String, nullable=False)
     finish = Column(String, nullable=False)
     surface = Column(String, nullable=True)
-    quantity = Column(String, nullable=True)
-    weight = Column(String, nullable=False)
-    length = Column(String, nullable=True)
-    width = Column(String, nullable=True)
-    height = Column(String, nullable=True)
-    thickness = Column(String, nullable=True)
-    outer_diameter = Column(String, nullable=True)
-    wall_thickness = Column(String, nullable=True)
-    web_thickness = Column(String, nullable=True)
-    flange_thickness = Column(String, nullable=True)
+    quantity = Column(Integer, nullable=True)
+    weight = Column(Float, nullable=False)
+    length = Column(Float, nullable=True)
+    width = Column(Float, nullable=True)
+    height = Column(Float, nullable=True)
+    thickness = Column(Float, nullable=True)
+    outer_diameter = Column(Float, nullable=True)
+    wall_thickness = Column(Float, nullable=True)
+    web_thickness = Column(Float, nullable=True)
+    flange_thickness = Column(Float, nullable=True)
     certificates = Column(String, nullable=True)
     location = Column(String, nullable=False)
 
@@ -35,7 +35,7 @@ class PreferenceSchema(Base):
     form = Column(String, nullable=False)
     grade = Column(String, nullable=True)
     choice = Column(String, nullable=True)
-    min_width = Column(String, nullable=True)
-    max_width = Column(String, nullable=True)
-    min_thickness = Column(String, nullable=True)
-    max_thickness = Column(String, nullable=True)
+    min_width = Column(Float, nullable=True)
+    max_width = Column(Float, nullable=True)
+    min_thickness = Column(Float, nullable=True)
+    max_thickness = Column(Float, nullable=True)
