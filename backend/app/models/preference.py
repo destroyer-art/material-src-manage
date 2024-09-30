@@ -6,7 +6,7 @@ class PreferenceModel(BaseModel):
     form: str
     grade: str
     choice: str
-    min_width: str
-    max_width: str
-    min_thickness: str
-    max_thickness: str
+    min_width: float
+    max_width: float
+    min_thickness: float
+    max_thickness: float
