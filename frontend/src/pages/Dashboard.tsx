@@ -1,7 +1,7 @@
 import React from "react";
-import { withMainlayout } from "../layouts";
+import { withMainLayout } from "../layouts";
 import { InventoryTable } from "../components/Common";
 
-export const Dashboard: React.FC = withMainlayout(() => {
+export const Dashboard: React.FC = withMainLayout(() => {
   return <InventoryTable />;
 });

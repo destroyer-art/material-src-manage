@@ -1,4 +1,6 @@
+import React from "react";
 import { HeaderBarView } from "../components/Views";
+import { Box, Container, CssBaseline } from "@mui/material";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -6,17 +8,29 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div className="w-full h-full relative">
+    <Box sx={{ width: "100%", height: "100%", position: "relative" }}>
       <HeaderBarView />
-      <div className="w-full h-[calc(100vh-112px)]">{children}</div>
-    </div>
+      <Container
+        maxWidth="xl"
+        sx={{
+          width: "100%",
+          height: "calc(100vh - 112px)",
+          paddingY: 2,
+        }}
+      >
+        {children}
+      </Container>
+    </Box>
   );
 };
 
-export const withMainlayout = (Page: React.FC) => () => {
+export const withMainLayout = (Page: React.FC) => () => {
   return (
-    <MainLayout>
-      <Page />
-    </MainLayout>
+    <>
+      <CssBaseline />
+      <MainLayout>
+        <Page />
+      </MainLayout>
+    </>
   );
 };
