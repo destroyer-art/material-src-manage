@@ -16,6 +16,7 @@ export const InventoryTable: React.FC = () => {
   const [inventory, setInventory] = useState<Inventory[]>([]);
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const [inventoryCount, setInventoryCount] = useState<number>(0);
 
   const fetchData = async () => {
     const response = await axios.get("http://localhost:4000/inventory", {
@@ -24,6 +25,12 @@ export const InventoryTable: React.FC = () => {
     const data: Inventory[] = response.data;
     return data;
   };
+
+  useEffect(() => {
+    const count = axios
+      .get("http://localhost:4000/inventory/count")
+      .then((response) => setInventoryCount(parseInt(response.data)));
+  }, [inventoryCount]);
 
   useEffect(() => {
     fetchData().then((data) => setInventory(data));
@@ -52,31 +59,32 @@ export const InventoryTable: React.FC = () => {
               <TableCell>Grade</TableCell>
               <TableCell>Finish</TableCell>
               <TableCell>Quantity</TableCell>
+              <TableCell>Dimensions</TableCell>
               <TableCell>Weight</TableCell>
               <TableCell>Location</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {inventory
-              .map((ivntry) => (
-                <TableRow hover role="checkbox" tabIndex={-1} key={ivntry.id}>
-                  <TableCell>{ivntry.id}</TableCell>
-                  <TableCell>{ivntry.product_number}</TableCell>
-                  <TableCell>{`${ivntry.form} ${ivntry.choice}`}</TableCell>
-                  <TableCell>{`${ivntry.grade} ${ivntry.surface}`}</TableCell>
-                  <TableCell>{ivntry.finish}</TableCell>
-                  <TableCell>{ivntry.quantity}</TableCell>
-                  <TableCell>{ivntry.weight}</TableCell>
-                  <TableCell>{ivntry.location}</TableCell>
-                </TableRow>
-              ))}
+            {inventory.map((ivntry) => (
+              <TableRow hover role="checkbox" tabIndex={-1} key={ivntry.id}>
+                <TableCell>{ivntry.id}</TableCell>
+                <TableCell>{ivntry.product_number}</TableCell>
+                <TableCell>{`${ivntry.form} ${ivntry.choice}`}</TableCell>
+                <TableCell>{`${ivntry.grade} ${ivntry.surface}`}</TableCell>
+                <TableCell>{ivntry.finish}</TableCell>
+                <TableCell>{ivntry.quantity}</TableCell>
+                <TableCell>{`L=${ivntry.length} W=${ivntry.width} H=${ivntry.height} T=${ivntry.thickness} OD=${ivntry.outer_diameter} Wt=${ivntry.wall_thickness} Tw=${ivntry.web_thickness} Tf=${ivntry.flange_thickness}`}</TableCell>
+                <TableCell>{ivntry.weight}</TableCell>
+                <TableCell>{ivntry.location}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[5, 10, 15]}
         component="div"
-        count={11650}
+        count={inventoryCount}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
