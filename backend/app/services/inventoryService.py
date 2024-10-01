@@ -39,7 +39,7 @@ async def get_match_inventory(preference: PreferenceModel):
 
     for attr, schema_field, operator in conditions:
         value = getattr(preference, attr)
-        if value is not None:
+        if value is not None and value is not '':
             if operator == "==":
                 filter_conditions.append(schema_field == value)
             elif operator == ">=":
