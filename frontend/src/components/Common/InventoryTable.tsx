@@ -65,9 +65,9 @@ export const InventoryTable: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {inventory.map((ivntry) => (
+            {inventory.map((ivntry, index) => (
               <TableRow hover role="checkbox" tabIndex={-1} key={ivntry.id}>
-                <TableCell>{ivntry.id}</TableCell>
+                <TableCell>{page * rowsPerPage + index + 1}</TableCell>
                 <TableCell>{ivntry.product_number}</TableCell>
                 <TableCell>{`${ivntry.form} ${ivntry.choice}`}</TableCell>
                 <TableCell>{`${ivntry.grade} ${ivntry.surface}`}</TableCell>
