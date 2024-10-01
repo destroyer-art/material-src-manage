@@ -6,6 +6,10 @@ from sqlalchemy import and_
 dbHandler = SessionLocal()
 
 
+async def get_inventory_count():
+    return dbHandler.query(InventorySchema).count()
+
+
 async def get_inventory_data(page: int, perpage: int):
     offset = (page - 1) * perpage
     return (
