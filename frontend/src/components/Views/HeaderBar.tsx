@@ -1,9 +1,31 @@
 import React from "react";
+import { AppBar, Toolbar, Typography, Container } from "@mui/material";
 
 export const HeaderBarView: React.FC = () => {
   return (
-    <div className="z-20 sticky top-0 w-full min-h-28 max-h-28 flex p-3 flex-row shadow-md shadow-black justify-between items-center xl:py-[1.375rem] bg-gradient-to-r from-[#5c5e75] to-[#100c35]">
-      <div className="text-white text-2xl px-8">Inventory Management</div>
-    </div>
+    <AppBar
+      position="sticky"
+      sx={{
+        zIndex: 20,
+        minHeight: '4rem',
+        maxHeight: '4rem',
+        background: 'linear-gradient(90deg, #5c5e75, #100c35)',
+        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)',
+      }}
+    >
+      <Container maxWidth="xl">
+        <Toolbar
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            paddingY: '1.375rem',
+          }}
+        >
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, paddingX: 1 }}>
+            Inventory Management
+          </Typography>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
