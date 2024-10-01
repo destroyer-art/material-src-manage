@@ -2,19 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { PATH } from "../consts";
 import { Preference } from "../types";
+import { Container } from "@mui/material";
+import { MatchPreferView } from "../components/Views";
 
 export const ViewMatchPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [preference, setPreference] = useState<Preference[]>([]);
-
   useEffect(() => {
     if (!location.state) {
       navigate(PATH.DASHBOARD);
     }
-    setPreference(location.state);
-  }, [preference]);
+  }, []);
 
-  return <>Hello, World</>;
+  return (
+    <Container maxWidth="xl">
+      <MatchPreferView prefers={location.state} />
+    </Container>
+  );
 };
